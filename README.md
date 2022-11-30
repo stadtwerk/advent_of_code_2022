@@ -6,7 +6,7 @@ This is the solution of the [stadt.werk GmbH](https://stadtwerk.org) developers 
 
 ## Organization
 
-You can find the organization [here](https://stadtwerk.atlassian.net/wiki/spaces/stadtwerk/pages/1556119553/Advent+of+Code+2022).
+You can find the confluence page for planning [here](https://stadtwerk.atlassian.net/wiki/spaces/stadtwerk/pages/1556119553/Advent+of+Code+2022).
 
 ## How to participate
 
