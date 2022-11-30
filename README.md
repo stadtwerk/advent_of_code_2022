@@ -24,4 +24,6 @@ e.g. `01-Fabian`
 
 Create a README in your folder and document your approach. Other then that you can use any language you want. You don't have to create a dedicated branch, just commit to the main branch. But please don't overwrite other people's solutions.
 
-Don't forget to update the repositorys `.gitignore` file and the `AUTHORS` file. Lastly update the confluence page with a checkmark and your used technology.
+Don't forget to update the repositorys `.gitignore` file and the `AUTHORS` file. Lastly update the confluence page with a checkmark and your used technology, if you solved the riddle!
+
+Happy Hacking! 🤖
