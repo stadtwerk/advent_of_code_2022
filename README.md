@@ -10,6 +10,14 @@ You can find the organization [here](https://stadtwerk.atlassian.net/wiki/spaces
 
 ## How to participate
 
+### Prerequisites
+
+Get the `.env` file from Fabian and put it in your root directory. It contains the session cookie for the AoC website if you want to automate the input/output.
+
+If you want to use the AoC website, log in with the google account given in the `.env` file.
+
+### Your code
+
 Create a folder in the root dir of this repository and name it with the number of the day you want to solve and your name.
 
 e.g. `01-Fabian`
