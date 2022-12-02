@@ -1,6 +1,7 @@
 import * as fs from "fs/promises";
 
 const input = await fs.readFile("input.txt", "utf-8");
+const strategy = input.split("\n").map((line) => line.replace(" ", ""));
 
 function calcResult(input) {
   // A: Rock, B: Paper, C: Scissors
@@ -22,8 +23,26 @@ function calcResult(input) {
 }
 
 console.log(
-  input
-    .split("\n")
-    .map((line) => line.replace(" ", ""))
-    .reduce((a, c) => a + calcResult(c), 0)
+  strategy.reduce((a, c) => a + calcResult(c), 0)
+);
+
+// Bonus
+function calcBonusResult(input) {
+  // X: Lose, Y: Draw, Z: Win
+  const bonusResult = {
+    AX: 3,
+    AY: 4,
+    AZ: 8,
+    BX: 1,
+    BY: 5,
+    BZ: 9,
+    CX: 2,
+    CY: 6,
+    CZ: 7,
+  };
+  return bonusResult[input];
+}
+
+console.log("Bonus: ",
+  strategy.reduce((a, c) => a + calcBonusResult(c), 0)
 );
