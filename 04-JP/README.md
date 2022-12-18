@@ -5,7 +5,7 @@
 
 ## Run the code
 `cd '<ProjectDir>; & java '-cp' '<compileDir>' 'Main'`
-`or use your IDE to run it.`
+`or use your IDE to run it. (you need to set up the java compiler first)`
 
 ## Idea Behind it:
 - Read in the input (saved as input.txt);
