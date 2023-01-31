@@ -70,20 +70,18 @@ const calculateHighestGeodeCount = (blueprints, durationInMinutes, timeLimits) =
 
             const geodeCounts = traverseDecisionTree(blueprint, state, durationInMinutes, timeLimits);
 
-            return geodeCounts
-                .sort((a, b) => a - b)
-                .slice(-1)[0];
+            return geodeCounts.sort((a, b) => b - a)[0];
         }
     );
 };
 
-const canProduce = (type, blueprint, inventory) => Boolean(
-    inventory.ore >= blueprint.costs[type][0] &&
-    inventory.clay >= blueprint.costs[type][1] &&
-    inventory.obsidian >= blueprint.costs[type][2]
+const canProduce = (type, blueprint, state) => Boolean(
+    state.ore >= blueprint.costs[type][0] &&
+    state.clay >= blueprint.costs[type][1] &&
+    state.obsidian >= blueprint.costs[type][2]
 );
 
-const shouldProduce = (type, blueprint, inventory, minutesLeft, timeLimits) => {
+const shouldProduce = (type, blueprint, state, minutesLeft, timeLimits) => {
 
     // We are not building specific robots when
     // less than a specific time frame is left.
@@ -95,7 +93,7 @@ const shouldProduce = (type, blueprint, inventory, minutesLeft, timeLimits) => {
     // We are limiting the number of a specific robot type
     // based on the required resources to build other robots.
     // Note: We can only produce _one_ robot per cycle!
-    if (inventory[type] === blueprint.typeLimits[type]) {
+    if (state[type] === blueprint.typeLimits[type]) {
 
         return false;
     };
@@ -103,7 +101,7 @@ const shouldProduce = (type, blueprint, inventory, minutesLeft, timeLimits) => {
     return true;
 };
 
-const evaluateNextBuildOptions = (blueprint, inventory, minutesLeft, timeLimits) => {
+const evaluateNextBuildOptions = (blueprint, state, minutesLeft, timeLimits) => {
 
     // To _not_ build a new robot is always a valid option.
     const robotTypes = [
@@ -118,11 +116,11 @@ const evaluateNextBuildOptions = (blueprint, inventory, minutesLeft, timeLimits)
 
     ].forEach(type => {
 
-        if (!shouldProduce(type, blueprint, inventory, minutesLeft, timeLimits)) {
+        if (!shouldProduce(type, blueprint, state, minutesLeft, timeLimits)) {
             return false;
         }
 
-        if (!canProduce(type, blueprint, inventory)) {
+        if (!canProduce(type, blueprint, state)) {
             return false;
         }
 
@@ -132,21 +130,21 @@ const evaluateNextBuildOptions = (blueprint, inventory, minutesLeft, timeLimits)
     return robotTypes;
 };
 
-const mine = inventory => {
+const mine = state => {
 
-    inventory.ore += inventory.oreRobot;
-    inventory.clay += inventory.clayRobot;
-    inventory.obsidian += inventory.obsidianRobot;
-    inventory.geode += inventory.geodeRobot;
+    state.ore += state.oreRobot;
+    state.clay += state.clayRobot;
+    state.obsidian += state.obsidianRobot;
+    state.geode += state.geodeRobot;
 };
 
-const build = (inventory, blueprint, robotType) => {
+const build = (state, blueprint, robotType) => {
 
-    inventory.ore -= blueprint.costs[robotType][0];
-    inventory.clay -= blueprint.costs[robotType][1];
-    inventory.obsidian -= blueprint.costs[robotType][2];
+    state.ore -= blueprint.costs[robotType][0];
+    state.clay -= blueprint.costs[robotType][1];
+    state.obsidian -= blueprint.costs[robotType][2];
 
-    inventory[robotType] += 1;
+    state[robotType] += 1;
 };
 
 const traverseDecisionTree = (blueprint, state, minutesLeft, timeLimits, robotType = null, result = []) => {
@@ -208,7 +206,7 @@ console.log(
         {
             oreRobot: 22,
             clayRobot: 10,
-            obsidianRobot: 6,
+            obsidianRobot: 4,
             geodeRobot: 2,
         }
     ).reduce(
